@@ -36,7 +36,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final List<Task> _tasks = [];
+  final List<Task> _tasks = [
+    Task(title: " studing ", state: "not yet ", category: "category"),
+  ];
   void _taskAdded(Task task) {
     setState(() {
       _tasks.add(task);
@@ -86,9 +88,11 @@ class _MyHomePageState extends State<MyHomePage> {
               margin: const EdgeInsets.all(8),
               height: 100,
               child: Expanded(
-                child: Column(children: const [
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: const [
                   Text(
-                    " completed : ",
+                    "Tasks : ",
                     style: TextStyle(fontWeight: FontWeight.bold),
                   )
                 ]),
@@ -98,7 +102,9 @@ class _MyHomePageState extends State<MyHomePage> {
               margin: const EdgeInsets.all(8),
               height: 100,
               child: Expanded(
-                child: Column(children: const [
+                child: Column(
+                   mainAxisAlignment: MainAxisAlignment.start,
+                  children: const [
                   Text(
                     " completed : ",
                     style: TextStyle(fontWeight: FontWeight.bold),
@@ -118,6 +124,36 @@ class _MyHomePageState extends State<MyHomePage> {
         },
         child: Icon(Icons.add),
       ),
+      persistentFooterButtons: [
+        
+         Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            IconButton(
+                  icon: const Icon(
+                    Icons.check_box,
+                    color: Colors.black,
+                  ),
+                  onPressed: () {},),
+        IconButton(
+          
+          
+                  icon: const Icon(
+                    Icons.calendar_today_outlined,
+                    color: Colors.black,
+                  ),
+                  onPressed: () {},
+                ),
+                IconButton(
+                  icon: const Icon(
+                    Icons.hexagon,
+                    color: Colors.black,
+                  ), 
+                  onPressed: () {  },)
+          ],
+         )
+
+      ],
     );
   }
 }
