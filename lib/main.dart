@@ -1,8 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:footer/footer.dart';
-import 'package:footer/footer_view.dart';
 import 'addTask.dart';
 import 'task.dart';
 
