@@ -36,33 +36,70 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                   keyboardType: TextInputType.text,
                   textInputAction: TextInputAction.next,
                 ),
-                TextFormField(
-                  decoration: const InputDecoration(
-                    labelText: "Task Title ",
-                  ),
-                  controller: stateController,
-                  keyboardType: TextInputType.text,
-                  textInputAction: TextInputAction.next,
-                ),
-                TextFormField(
-                  decoration: const InputDecoration(
-                    labelText: "Task Title ",
-                  ),
-                  controller: cataController,
-                  keyboardType: TextInputType.text,
-                  textInputAction: TextInputAction.next,
-                ),
+                // TextFormField(
+                //   decoration: const InputDecoration(
+                //     labelText: "Task Title ",
+                //   ),
+                //   controller: stateController,
+                //   keyboardType: TextInputType.text,
+                //   textInputAction: TextInputAction.next,
+                // ),
+                // TextFormField(
+                //   decoration: const InputDecoration(
+                //     labelText: "Task Title ",
+                //   ),
+                //   controller: cataController,
+                //   keyboardType: TextInputType.text,
+                //   textInputAction: TextInputAction.next,
+                // ),
                 
-                SizedBox(
-                  height: 50,
-                  child: ElevatedButton(child: Text("data") ,onPressed: () {
+                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                      Row(
+                        children: [
+                         IconButton(onPressed: () {
+                           
+                         }, icon: Icon(Icons.calendar_month)),
+                      IconButton(onPressed: () {
+                           
+                         }, icon: Icon(Icons.flag)),
+                      IconButton(onPressed: () {
+                           
+                         }, icon: Icon(Icons.more_sharp)),
+                      IconButton(onPressed: () {
+                           
+                         }, icon: Icon(Icons.inbox)),
+                        ],
+                  
+                      ),
+                      
+                  //     ElevatedButton(
+                  //   child: Icon(Icons.send, color: Colors.black,) ,
+                  //   onPressed: () {
+                  //    widget.onTaskAdd(
+                  //     Task(
+                  //       title: titleController.text, 
+                  //       state: stateController.text,
+                  //        category: cataController.text ),);
+                  //   Navigator.pop(context);
+                  //   titleController.clear();
+                  // },),
+                  IconButton(onPressed: () {
                      widget.onTaskAdd(
                       Task(
                         title: titleController.text, 
                         state: stateController.text,
                          category: cataController.text ),);
                     Navigator.pop(context);
-                  },)
+                    titleController.clear();
+                  }, icon:Icon(Icons.send))
+                      ],
+                      
+                    ) ,
+                const SizedBox(
+                  height: 50,
+                  
                     
                    
                  

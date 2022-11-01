@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'addTask.dart';
@@ -14,15 +14,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'Flutter Demo Contact APP'),
+      home: const MyHomePage(title: 'Flutter Demo Contact APP'),
     );
   }
 }
-// class _MyAppState extends State<MyApp> {
-// This widget is the root of your application.
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
@@ -34,9 +31,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final List<Task> _tasks = [
-    Task(title: " studing ", state: "not yet ", category: "category"),
-  ];
+  final List<Task> _tasks = [];
   void _taskAdded(Task task) {
     setState(() {
       _tasks.add(task);
@@ -46,19 +41,21 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        backgroundColor: Colors.white,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Row(
               children: [
+                // menue icon
                 IconButton(
-                  icon: const Icon(
-                    Icons.menu,
-                    color: Colors.black,
-                  ),
                   onPressed: () {},
+                  icon: Icon(Icons.menu),
+                  color: Colors.black,
                 ),
+                // title 'inbox'
                 const Text(
                   " Inbox",
                   style: TextStyle(
@@ -69,51 +66,65 @@ class _MyHomePageState extends State<MyHomePage> {
               ],
             ),
             IconButton(
-              icon: const Icon(
-                Icons.more_vert,
-                color: Colors.black,
-              ),
-              onPressed: () {},
-            ),
+                onPressed: () {},
+                icon: Icon(Icons.more_vert),
+                color: Colors.black),
           ],
         ),
-        backgroundColor: Colors.white,
       ),
+      // double height =MediaQuery.of(context).size.height *0.9;
       body: ListView(
         children: [
+          // added tasks
           Container(
-              padding: const EdgeInsets.all(5),
-              margin: const EdgeInsets.all(8),
-              height: 100,
-              child: Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: const [
-                  Text(
-                    "Tasks : ",
-                    style: TextStyle(fontWeight: FontWeight.bold),
+              padding: const EdgeInsets.all(1),
+              margin: const EdgeInsets.all(1),
+              height: MediaQuery.of(context).size.height * 0.3,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    "My Tasks:",
+                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                  ),
+                  Expanded(
+                    child: ListView.builder(
+                        itemCount: _tasks.length,
+                        itemBuilder: (context, index) => Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                IconButton(
+                                    onPressed: () {},
+                                    icon: Icon(Icons.check_box_outline_blank)),
+                                Text(_tasks[index].title)
+                              ],
+                            )),
                   )
-                ]),
+                ],
               )),
+          // completed tasks
           Container(
-              padding: const EdgeInsets.all(5),
-              margin: const EdgeInsets.all(8),
-              height: 100,
-              child: Expanded(
-                child: Column(
-                   mainAxisAlignment: MainAxisAlignment.start,
+              padding: const EdgeInsets.all(1),
+              margin: const EdgeInsets.all(1),
+              height: MediaQuery.of(context).size.height * 0.3,
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: const [
-                  Text(
-                    " completed : ",
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  )
-                ]),
-              ))
+                    Text(
+                      "Completed:",
+                      style:
+                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                    )
+                  ]))
         ],
       ),
+      // + add tasks
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showModalBottomSheet(
+              backgroundColor: Colors.white,
               isScrollControlled: true,
               context: context,
               builder: (_) {
@@ -122,42 +133,35 @@ class _MyHomePageState extends State<MyHomePage> {
         },
         child: Icon(Icons.add),
       ),
+      // footer
       persistentFooterButtons: [
-        
-         Row(
+        Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             IconButton(
-                  icon: const Icon(
-                    Icons.check_box,
-                    color: Colors.black,
-                  ),
-                  onPressed: () {},),
-        IconButton(
-          
-          
-                  icon: const Icon(
-                    Icons.calendar_today_outlined,
-                    color: Colors.black,
-                  ),
-                  onPressed: () {},
-                ),
-                IconButton(
-                  icon: const Icon(
-                    Icons.hexagon,
-                    color: Colors.black,
-                  ), 
-                  onPressed: () {  },)
+              icon: const Icon(
+                Icons.check_box,
+                color: Colors.black,
+              ),
+              onPressed: () {},
+            ),
+            IconButton(
+              icon: const Icon(
+                Icons.calendar_today_outlined,
+                color: Colors.black,
+              ),
+              onPressed: () {},
+            ),
+            IconButton(
+              icon: const Icon(
+                Icons.hexagon,
+                color: Colors.black,
+              ),
+              onPressed: () {},
+            )
           ],
-         )
-
+        )
       ],
     );
   }
 }
-
-// void taskAdded(Task task) {
-//             setState(() {
-//               tasks.add(task);
-//             });
-//           }
