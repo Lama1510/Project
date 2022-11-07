@@ -1,11 +1,12 @@
 class Task {
   String title;
- // DateTime? _date;
+  DateTime? date = DateTime(2017, 9, 7);
   String   ? state; 
   String ?  category;
 
   //construcror:
-  Task({required this.title, required this.state , required this.category});
+  Task({required this.title, required this.category, this.date});
+  //Task({required this.title, required this.state , required this.category, this.date});
 
 //   getters and setters :
 //   Getter methods :

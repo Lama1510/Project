@@ -1,6 +1,6 @@
-import 'dart:ui';
-
+//import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'addTask.dart';
 import 'task.dart';
 
@@ -32,14 +32,37 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Task> _tasks = [];
+  final List<Task> _completedTasks = [];
   void _taskAdded(Task task) {
     setState(() {
       _tasks.add(task);
     });
   }
+  String calculateDifference(DateTime? date) {
+    String day="";
+    int i =0;
+    DateTime now = DateTime.now();
+    //print(DateTime(date.year, date.month, date.day).difference(DateTime(now.year, now.month, now.day)).inDays);
+    try{
+      i=DateTime(date!.year, date.month, date.day).difference(DateTime(now.year, now.month, now.day)).inDays;
+      if(i==0){
+        day="Today";
+      }else if(i==1){
+        day="Tomorrow";
+      }else{
+        day="";
+      }
+    }catch(e){
+      i=2;
+    }
+    return day;
+  }
 
   @override
   Widget build(BuildContext context) {
+    final DateFormat dateFormatter = DateFormat('yyyy-MM-dd');
+    // final today = DateTime(now.year, now.month, now.day);
+    // final tomorrow = DateTime(now.year, now.month, now.day + 1);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -92,14 +115,69 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: ListView.builder(
                         itemCount: _tasks.length,
                         itemBuilder: (context, index) => Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
+                              //mainAxisAlignment: MainAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                IconButton(
-                                    onPressed: () {},
-                                    icon: Icon(Icons.check_box_outline_blank)),
-                                Text(_tasks[index].title)
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        IconButton(
+                                     // on pressing on the check box , change the task state into completed
+                                      onPressed: () {
+                                        // int d = 0;
+                                        // try {
+                                        //   d = calculateDifference(_tasks[index].date);
+                                        // }
+                                        // catch(e) {
+                                        //   print("hello from date");
+                                        //   d= null;
+                                        //   //return;
+                                        // }
+                                        setState(() {
+                                          //_tasks[index].state="c";
+                                          _completedTasks.add(_tasks[index]);
+                                          //print(_tasks[index].state);
+                                          _tasks.remove(_tasks[index]);
+                                        });
+                                        },
+                                      icon: Icon(Icons.check_box_outline_blank)),
+                                    //icon:Icon(_tasks[index].state !="c" ? Icons.check_box_outline_blank : null)),
+                                    Text(_tasks[index].title),
+                                    //Text(_tasks[index].state !="c" ? _tasks[index].title : ""),
+                                      ],
+                                    )
+                                  ],
+                                ),
+                                Column(
+                                  children: [
+                                    // if(_tasks[index].date != null){
+                                    //     calculateDifference(_tasks[index].date);
+                                    //   }
+                                    //   else{
+                                    //     ""
+                                    //   }
+                                    
+                                    // Text(
+                                    //   if(_tasks[index].date != null){
+                                    //     calculateDifference(_tasks[index].date);
+                                    //   }
+                                    //   else{
+                                    //     ""
+                                    //   }
+                                    // )
+                                    
+                                    Text(_tasks[index].date != null ? 
+                                    calculateDifference(_tasks[index].date).toString()
+                                    //dateFormatter.format(_tasks[index].date as DateTime)  
+                                    : "" 
+                                    )
+                                  ],
+                                )
                               ],
-                            )),
+                            )
+                            ),
                   )
                 ],
               )),
@@ -111,18 +189,34 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children: [
                     Text(
                       "Completed:",
                       style:
                           TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                    )
+                    ),
+                    Expanded(
+                      child: ListView.builder(
+                        itemCount: _completedTasks.length,
+                        itemBuilder: (context, index) => Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            IconButton(
+                              onPressed: (){},
+                              icon: Icon(Icons.check_box)
+                              ),
+                              Text(_completedTasks[index].title),
+                              //Text(_tasks[index].state =="c" ? _completedTasks[index].title : "")
+                          ],
+                        )
+                        )
+                      )
                   ]))
         ],
       ),
       // + add tasks
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
+        onPressed: () {          
           showModalBottomSheet(
               backgroundColor: Colors.white,
               isScrollControlled: true,
