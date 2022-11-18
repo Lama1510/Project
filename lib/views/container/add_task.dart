@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'task.dart';
+import '../../models/task.dart';
 import 'package:intl/intl.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -56,26 +56,9 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                   keyboardType: TextInputType.text,
                   textInputAction: TextInputAction.next,
                 ),
-                // TextFormField(
-                //   decoration: const InputDecoration(
-                //     labelText: "Task Title ",
-                //   ),
-                //   controller: stateController,
-                //   keyboardType: TextInputType.text,
-                //   textInputAction: TextInputAction.next,
-                // ),
-                // TextFormField(
-                //   decoration: const InputDecoration(
-                //     labelText: "Task Title ",
-                //   ),
-                //   controller: cataController,
-                //   keyboardType: TextInputType.text,
-                //   textInputAction: TextInputAction.next,
-                // ),
-                
-                 Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
+                    children: [
                       Row(
                         children: [
                           IconButton(
@@ -103,62 +86,57 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                             icon: Icon(Icons.inbox)
                             ),
                         ],
-                  
                       ),
-                      
-                  //     ElevatedButton(
-                  //   child: Icon(Icons.send, color: Colors.black,) ,
-                  //   onPressed: () {
-                  //    widget.onTaskAdd(
-                  //     Task(
-                  //       title: titleController.text, 
-                  //       state: stateController.text,
-                  //        category: cataController.text ),);
-                  //   Navigator.pop(context);
-                  //   titleController.clear();
-                  // },),
-                  IconButton(
-                    onPressed: () {
-                      DateTime? d= new DateTime(2017, 9, 7);
-                      if(titleController.text.isEmpty) {
-                        Fluttertoast.showToast(
-                          msg: 'please enter task title',
-                          gravity: ToastGravity.BOTTOM_LEFT,
-                          timeInSecForIosWeb: 2,
-                          fontSize: 25.5,
-                          backgroundColor: Colors.amber
-                          );
-                        print("hi text");
-                        _selectedDate="";
-                        return;
-                      }
-                      try {
-                        d = DateFormat("yMMMMd").parse(_selectedDate);
-                      }
-                      catch(e) {
-                        print("hello from date");
-                        d= null;
-                        //return;
-                      }
-
-                      widget.onTaskAdd(
-                        Task(
-                          title: titleController.text, 
-                          //state: stateController.text,
-                          category: cataController.text,
-                          // date: _selectedDate !=null ? DateFormat("yMMMMd").parse(_selectedDate) : null
-                          date: d
-                          ),
-                          );
-                      Navigator.pop(context);
-                      titleController.clear();
-                      _selectedDate="";
-                      setState(() {
-                    });
-                    }, 
-                    icon:Icon(Icons.send))
-                    ],  
-                    ) ,
+                      IconButton(
+                        onPressed: () {
+                          late DateTime d ;
+                          //DateTime d= new DateTime(2017, 9, 7);
+                          if(titleController.text.isEmpty) {
+                            Fluttertoast.showToast(
+                              msg: 'please enter task title',
+                              gravity: ToastGravity.BOTTOM_LEFT,
+                              timeInSecForIosWeb: 2,
+                              fontSize: 25.5,
+                              backgroundColor: Colors.amber
+                              );
+                            print("hi text");
+                            //_selectedDate="";
+                            return;
+                          }
+                          try {
+                            d = DateFormat("yMMMMd").parse(_selectedDate);
+                          }
+                          catch(e) {
+                            print("you didn't add a date");
+                            Fluttertoast.showToast(
+                              msg: 'please enter task date',
+                              gravity: ToastGravity.BOTTOM_LEFT,
+                              timeInSecForIosWeb: 2,
+                              fontSize: 25.5,
+                              backgroundColor: Colors.amber
+                              );
+                            //d= null;
+                            return;
+                          }
+                          widget.onTaskAdd(
+                            Task(
+                              title: titleController.text, 
+                              //state: stateController.text,
+                              category: cataController.text,
+                              // date: _selectedDate !=null ? DateFormat("yMMMMd").parse(_selectedDate) : null
+                              date: d
+                              ),
+                            );
+                          Navigator.pop(context);
+                          titleController.clear();
+                          _selectedDate="";
+                          setState(() {
+                        });
+                        }, 
+                        icon:Icon(Icons.send)
+                      )
+                      ],
+                ) ,
                 const SizedBox(
                   height: 50,                  
                 )
