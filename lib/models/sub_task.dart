@@ -2,9 +2,11 @@ class SubTask {
   String? attachment;
   String? location; 
   String? reminder;
+  String subtitle ;
 
   //construcror:
-  SubTask({required this.attachment, required this.location, this.reminder});
+  SubTask({this.attachment,  this.location, this.reminder ,required this.subtitle});
+  
 
   @override
   String toString() {

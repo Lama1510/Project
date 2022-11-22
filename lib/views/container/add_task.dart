@@ -122,7 +122,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                             Task(
                               title: titleController.text, 
                               //state: stateController.text,
-                              category: cataController.text,
+                            
                               // date: _selectedDate !=null ? DateFormat("yMMMMd").parse(_selectedDate) : null
                               date: d
                               ),

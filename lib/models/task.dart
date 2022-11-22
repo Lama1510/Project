@@ -2,13 +2,13 @@ import 'package:project/models/sub_task.dart';
 
 class Task {
   String title;
-  DateTime date = DateTime(2017, 9, 7);
+  DateTime  date = DateTime(2017, 9, 7);
   String   ? state; 
   String ?  category;
-  List<SubTask>? subTasks ;
+List<SubTask> subTasks =[] ;
 
   //construcror:
-  Task({required this.title, required this.category, required this.date});
+  Task({required this.title, this.category,  required this.date });
   //Task({required this.title, required this.state , required this.category, this.date});
 
 //   getters and setters :

@@ -38,7 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
     DateTime now = DateTime.now();
     //print(DateTime(date.year, date.month, date.day).difference(DateTime(now.year, now.month, now.day)).inDays);
     try{
-      i=DateTime(date!.year, date.month, date.day).difference(DateTime(now.year, now.month, now.day)).inDays;
+      i=DateTime(date.year, date.month, date.day).difference(DateTime(now.year, now.month, now.day)).inDays;
       if(i==0){
         day="Today";
       }else if(i==1){
