@@ -4,11 +4,11 @@ class Task {
   String title;
   DateTime  date = DateTime(2017, 9, 7);
   String   ? state; 
-  String ?  category;
+ // String ?  category;
 List<SubTask> subTasks =[] ;
 
   //construcror:
-  Task({required this.title, this.category,  required this.date });
+  Task({required this.title,  required this.date });
   //Task({required this.title, required this.state , required this.category, this.date});
 
 //   getters and setters :

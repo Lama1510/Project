@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:project/views/container/side_menu.dart';
 import '../../models/task.dart';
 import 'package:intl/intl.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:drop_down_list/drop_down_list.dart';
 
 class AddTaskScreen extends StatefulWidget {
   final Function(Task) onTaskAdd;
@@ -32,6 +34,20 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
           //_selectedDate = new DateFormat.yMMMMd("en_US").format(picked);
         });
      }
+  }
+  _showDaialog (context){
+    showDialog(context: context, 
+    builder: (context) => AlertDialog(
+      content: SizedBox( 
+        height: 150 ,
+        Expanded(child: ,)
+        
+        
+      ),
+
+    ),);
+
+
   }
 
 

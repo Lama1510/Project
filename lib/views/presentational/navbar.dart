@@ -11,11 +11,11 @@ class navbar extends StatelessWidget {
             Row(
               children: [
                 // menue icon
-                IconButton(
-                  onPressed: () {},
-                  icon: Icon(Icons.menu),
-                  color: Colors.black,
-                ),
+                // IconButton(
+                //   onPressed: () {},
+                //   icon: Icon(Icons.menu),
+                //   color: Colors.black,
+                // ),
                 // title 'inbox'
                 const Text(
                   " Inbox",
