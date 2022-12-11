@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:project/views/container/side_menu.dart';
+import 'package:provider/provider.dart';
 import '../../models/task.dart';
 import 'package:intl/intl.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:drop_down_list/drop_down_list.dart';
+import '../presentational/task_list.dart';
+import 'home.dart';
 
 class AddTaskScreen extends StatefulWidget {
   final Function(Task) onTaskAdd;
@@ -40,7 +43,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
     builder: (context) => AlertDialog(
       content: SizedBox( 
         height: 150 ,
-        Expanded(child: ,)
+       // Expanded(child: ,)
         
         
       ),
@@ -50,6 +53,12 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
 
   }
 
+  // void addIt(Task task){
+  //   setState(() {
+  //     TaskList().tasks.add(task);
+  //     print(TaskList().tasks);
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -103,8 +112,11 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                             ),
                         ],
                       ),
-                      IconButton(
-                        onPressed: () {
+                      Consumer<TaskList>(
+                      builder: (context, value, child) {
+                        return  IconButton(
+                        onPressed: () { 
+
                           late DateTime d ;
                           //DateTime d= new DateTime(2017, 9, 7);
                           if(titleController.text.isEmpty) {
@@ -134,23 +146,38 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                             //d= null;
                             return;
                           }
-                          widget.onTaskAdd(
-                            Task(
-                              title: titleController.text, 
-                              //state: stateController.text,
+                          // widget.onTaskAdd(
+                          //   Task(
+                          //     title: titleController.text, 
+                          //     //state: stateController.text,
                             
-                              // date: _selectedDate !=null ? DateFormat("yMMMMd").parse(_selectedDate) : null
-                              date: d
-                              ),
-                            );
+                          //     // date: _selectedDate !=null ? DateFormat("yMMMMd").parse(_selectedDate) : null
+                          //     date: d
+                          //     ),
+                          //   );
+                          //addIt(Task(title: titleController.text , date: d ));
+                                                          print(titleController.text + " : is task title");
+                                                          print(d.toString() + " : is task date");
+                            //value.tasks.add(Task(title: titleController.text , date: d ));
+                            // value.addTask(Task(title: titleController.text , date: d ));
+                            // print(TaskList().tasks);
+                          setState(() {
+                            value.addTask(Task(title: titleController.text , date: d ));
+                            print(TaskList().tasks);
+                          });
+                          
                           Navigator.pop(context);
                           titleController.clear();
                           _selectedDate="";
                           setState(() {
-                        });
+
+                          });
                         }, 
                         icon:Icon(Icons.send)
-                      )
+                      );
+                      }
+                      )                     
+                      
                       ],
                 ) ,
                 const SizedBox(
