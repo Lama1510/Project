@@ -53,8 +53,9 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
       task_index = -1;
     }
     //print(i);
-    _showDaialog(context){
-      showDialog(context: context, builder: (context) =>AlertDialog(
+    _showDaialog(BuildContext context){
+      showDialog(context: context,
+       builder: (context) =>AlertDialog(
         content:TextFormField(
                 decoration: const InputDecoration(
                   labelText: "sub Task Title ",
@@ -66,8 +67,14 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
         actions: [
           IconButton(
             onPressed: (){
-              TaskList().tasks[task_index].subTasks.add(SubTask(subtitle: subtaskController.text)) ;// subtasks.add(SubTask(subtitle: subtaskController.text));
-              subtaskController.clear();
+              // print(subtaskController.text);
+              //  print(task_index);
+               // TaskList().addSubTask(SubTask(subtitle: subtaskController.text),task_index);
+
+              TaskList().tasks[task_index].subTasks.add(SubTask(subtitle: subtaskController.text)) ;
+          
+              // subtasks.add(SubTask(subtitle: subtaskController.text));
+              //subtaskController.clear();
               Navigator.of(context).pop();
               setState(() {
 
@@ -159,9 +166,9 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
                                 ),
                                   // Text(subtasks[Index].subtitle)
                                   // Text( MyHomePage.tasks[task_index].subTasks![Index].subtitle.isNotEmpty? MyHomePage.tasks[task_index].subTasks![Index].subtitle : " empty"),
-                                Consumer<TaskList>(
-                                  builder:(context, value, child) =>Text( Index != -1 ? value.tasks[task_index].subTasks[Index].subtitle : "")
-                                )
+                                // Consumer<TaskList>(
+                                //   builder:(context, value, child) =>Text( Index != -1 ? Provider.of<TaskList>(context , listen: true).tasks[task_index].subTasks[Index].subtitle : "")
+                                // )
                               ],
                             ),
                           ],

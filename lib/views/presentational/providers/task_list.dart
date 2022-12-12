@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project/models/sub_task.dart';
 import 'package:project/models/task.dart';
 
 class TaskList extends ChangeNotifier {
@@ -13,6 +14,10 @@ class TaskList extends ChangeNotifier {
   // add a task to tasks list :
   addTask(Task task){
     _tasks.add(task);
+    notifyListeners();
+  }
+   addSubTask(SubTask sub_task , int  task_index){
+    _tasks[task_index].subTasks.add(sub_task);
     notifyListeners();
   }
   

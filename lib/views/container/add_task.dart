@@ -20,6 +20,7 @@ class AddTaskScreen extends StatefulWidget {
 final TextEditingController titleController = TextEditingController();
 final TextEditingController stateController = TextEditingController();
 final TextEditingController cataController = TextEditingController();
+catagory group_catagory = catagory.Inbox;
 
 String _selectedDate = '';
 
@@ -81,6 +82,27 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                   keyboardType: TextInputType.text,
                   textInputAction: TextInputAction.next,
                 ),
+                 SizedBox(
+                  height: 50,
+                ),
+                Column(
+                                children: [
+                                  DropdownButton(
+                                   value: group_catagory,
+                                    onChanged: (catagory? newValue) {
+                                                setState(() {
+                                                  group_catagory = newValue!;
+                                                });
+                                              },
+                                              items:  catagory.values.map((e) {
+                                                    return DropdownMenuItem(
+                                                      value: e,
+                                                      child: Text(e.name));
+                                                  }).toList(),
+                                                              )
+
+                                ],
+                              ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -106,6 +128,10 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                             ),
                           IconButton(
                             onPressed: () {
+                            
+                              
+                              
+                             
                               
                             },
                             icon: Icon(Icons.inbox)
@@ -162,7 +188,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                             // value.addTask(Task(title: titleController.text , date: d ));
                             // print(TaskList().tasks);
                           setState(() {
-                            value.addTask(Task(title: titleController.text , date: d ));
+                            value.addTask(Task(title: titleController.text , date: d , group: group_catagory ));
                             print(TaskList().tasks);
                           });
                           

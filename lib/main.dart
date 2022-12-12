@@ -1,5 +1,6 @@
 // packages :
 import 'package:flutter/material.dart';
+import 'package:project/views/container/catagory_tasks.dart';
 import 'package:provider/provider.dart';
 
 // widgets of project
@@ -16,6 +17,7 @@ void main() {
         routes: {
           '/': (context) => MyHomePage(),
           '/taskDetails': (context) => TaskDetailsScreen(),
+          '/catagoryDetails':(context) => CatagoryDetailsScreen()
         },
         )
       )
