@@ -5,7 +5,7 @@ import '../../models/task.dart';
 import 'package:intl/intl.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:drop_down_list/drop_down_list.dart';
-import '../presentational/task_list.dart';
+import '../presentational/providers/task_list.dart';
 import 'home.dart';
 
 class AddTaskScreen extends StatefulWidget {

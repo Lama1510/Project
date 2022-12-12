@@ -7,8 +7,8 @@ import 'package:provider/provider.dart';
 import 'add_task.dart';
 import '/models/task.dart';
 import 'package:project/views/container/side_menu.dart';
-import 'package:project/views/presentational/navbar.dart';
-import 'package:project/views/presentational/task_list.dart';
+import 'package:project/views/presentational/widgets/navbar.dart';
+import 'package:project/views/presentational/providers/task_list.dart';
 
 
 class MyHomePage extends StatefulWidget {

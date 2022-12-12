@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:project/models/sub_task.dart';
-import 'package:project/views/presentational/task_list.dart';
+import 'package:project/views/presentational/providers/task_list.dart';
 import 'package:provider/provider.dart';
 
 class TaskDetailsScreen extends StatefulWidget {

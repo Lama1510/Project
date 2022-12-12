@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 // widgets of project
 import 'package:project/views/container/home.dart';
 import 'package:project/views/container/task_details.dart';
-import 'package:project/views/presentational/task_list.dart';
+import 'package:project/views/presentational/providers/task_list.dart';
 
 void main() {
   runApp(
