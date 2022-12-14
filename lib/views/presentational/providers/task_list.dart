@@ -16,8 +16,17 @@ class TaskList extends ChangeNotifier {
     _tasks.add(task);
     notifyListeners();
   }
-   addSubTask(SubTask sub_task , int  task_index){
-    _tasks[task_index].subTasks.add(sub_task);
+
+  // add a subtask to a task :
+  addSubTask(SubTask sub_task , int  task_index){
+    try{
+      print(sub_task);
+      print(sub_task.subtitle);
+      _tasks[task_index].subTasks.add(sub_task);
+      notifyListeners();
+    }catch(e){
+      print("sub task isnt added");
+    }
     notifyListeners();
   }
   
@@ -30,5 +39,9 @@ class TaskList extends ChangeNotifier {
   // if a task exists in tasks list
   bool exists(Task task){
     return _tasks.contains(task)? true: false;
+  }
+
+  bool existsSub(Task task){
+    return _tasks.contains(task.subTasks)? true: false;
   }
 }

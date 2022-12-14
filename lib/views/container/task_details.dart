@@ -67,28 +67,38 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
         actions: [
           IconButton(
             onPressed: (){
-              // print(subtaskController.text);
-              //  print(task_index);
-               // TaskList().addSubTask(SubTask(subtitle: subtaskController.text),task_index);
+              try{
+                //TaskList().tasks[task_index].subTasks.add(SubTask(subtitle: subtaskController.text));
+                //Provider.of<TaskList>(context , listen: true).addSubTask(SubTask(subtitle: subtaskController.text), task_index);
+                
+                print (task_index);
+                //.subTasks.add(SubTask(subtitle: "hoo"));
 
-              TaskList().tasks[task_index].subTasks.add(SubTask(subtitle: subtaskController.text)) ;
-          
-              // subtasks.add(SubTask(subtitle: subtaskController.text));
-              //subtaskController.clear();
-              Navigator.of(context).pop();
+                //Provider.of<TaskList>(context , listen: true).tasks[task_index].subTasks.add(SubTask(subtitle: subtaskController.text));
+
+                //print(task_index);
+                 //print(TaskList().tasks[task_index].title );
+                //print(Provider.of<TaskList>(context , listen: true).existsSub(Provider.of<TaskList>(context , listen: true).tasks[task_index]));
+              }catch(e){
+                print("catttttch");
+              }
               setState(() {
 
               });
+              subtaskController.clear();
+              Navigator.of(context).pop();
           }, icon:Icon( Icons.send)),
         ],
       ),);
     }
-    int counter ;
-    try{
-      counter =TaskList().tasks[task_index].subTasks.length;
-    }catch(e){
-      counter=0;
-    }
+    // int counter ;
+    // try{
+    //   counter =TaskList().tasks[task_index].subTasks.length;
+    //   print(counter);
+    // }catch(e){
+    //   counter=0;
+    //   print(counter);
+    // }
 //_____________________________________________________________________________________________________
     return Scaffold(
       resizeToAvoidBottomInset : false,
@@ -102,10 +112,13 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
       ),
       body:Container(
         padding:EdgeInsets.all(8),
-        height: 100,
+        //height: 100,
         color: Colors.white,
-        child:Expanded(
-          child:Column(
+        child: Column(
+          children:[ 
+           // Expanded(
+          //child:
+          Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -143,36 +156,33 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
                   )
                 ], 
               ),
-              const SizedBox(
-                height: 50,
-              ),
+              // const SizedBox(
+              //   height: 50,
+              // ),
+      //____________________________________________________________________________________________
               Container(
                 height: 100,
                 child:Column(
                   children: [
                     Expanded(
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        itemCount:counter,
-                        itemBuilder: (context, Index) => Column(
-                          children: [
-                            Row(
+                      child: Consumer<TaskList>(
+                          builder:(context, value, child) => ListView.builder(
+                            //shrinkWrap: true,
+                            //scrollDirection: Axis.horizontal,
+                            itemCount:value.tasks[task_index].subTasks.length,
+                            itemBuilder: (context, Index) => Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 IconButton(
                                   onPressed: (){},
                                   icon: Icon(Icons.check_box_rounded, color: Colors.black45,)
                                 ),
-                                  // Text(subtasks[Index].subtitle)
-                                  // Text( MyHomePage.tasks[task_index].subTasks![Index].subtitle.isNotEmpty? MyHomePage.tasks[task_index].subTasks![Index].subtitle : " empty"),
-                                // Consumer<TaskList>(
-                                //   builder:(context, value, child) =>Text( Index != -1 ? Provider.of<TaskList>(context , listen: true).tasks[task_index].subTasks[Index].subtitle : "")
-                                // )
+                                //Text( value.tasks.length == 0 ? "task listlength is 0" : value.tasks[task_index].title),
+                                //Text( value.tasks.isEmpty? "no tasks" :value.tasks[task_index].title),
+                                Text( value.tasks[task_index].subTasks.isEmpty? "subtasks list is empty" :value.tasks[task_index].subTasks[Index].subtitle)
                               ],
-                            ),
-                          ],
-                        )     
+                            )     
+                          ),
                       ),    
                     ),
                   ],
@@ -180,7 +190,9 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
               )
             ],
           )
-        )
+        //)
+        ]
+      )
       ),
       // footer
       persistentFooterButtons: [

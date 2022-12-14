@@ -151,18 +151,25 @@ class _MyHomePageState extends State<MyHomePage> {
                           TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                     ),
                     Expanded(
-                        child: ListView.builder(
-                            itemCount: _completedTasks.length,
-                            itemBuilder: (context, index) => Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    IconButton(
-                                        onPressed: () {},
-                                        icon: Icon(Icons.check_box)),
-                                    Text(_completedTasks[index].title),
-                                    //Text(tasks[index].state =="c" ? _completedTasks[index].title : "")
-                                  ],
-                                )))
+                        child: Consumer<TaskList>(
+                           builder: (context, value, child) => ListView.builder(
+                              itemCount: _completedTasks.length,
+                              itemBuilder: (context, index) => Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      IconButton(
+                                          onPressed: () {
+                                            setState(() {
+                                              value.tasks.add(_completedTasks[index]);
+                                              _completedTasks.removeAt(index); //MyHomePage.tasks.remove(MyHomePage.tasks[index]);
+                                              });
+                                          },
+                                          icon: Icon(Icons.check_box)),
+                                      Text(_completedTasks[index].title),
+                                      //Text(tasks[index].state =="c" ? _completedTasks[index].title : "")
+                                    ],
+                                  )),
+                        ))
                   ]))
         ],
       ),
