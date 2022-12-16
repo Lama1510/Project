@@ -13,7 +13,7 @@ class TaskDetailsScreen extends StatefulWidget {
 
 class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
   TextEditingController subtaskController =TextEditingController();
-   List<SubTask> subtasks = [ ];
+   //List<SubTask> subtasks = [ ];
    String calculateDifference(DateTime date) {
     final formating = new DateFormat('MMMd');
     String formatedDate ; 
@@ -68,7 +68,7 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
           IconButton(
             onPressed: (){
               try{
-                //TaskList().tasks[task_index].subTasks.add(SubTask(subtitle: subtaskController.text));
+                TaskList().tasks[task_index].subTasks.add(SubTask(subtitle: subtaskController.text));
                 //Provider.of<TaskList>(context , listen: true).addSubTask(SubTask(subtitle: subtaskController.text), task_index);
                 
                 print (task_index);
@@ -77,7 +77,7 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
                 //Provider.of<TaskList>(context , listen: true).tasks[task_index].subTasks.add(SubTask(subtitle: subtaskController.text));
 
                 //print(task_index);
-                 //print(TaskList().tasks[task_index].title );
+                 print(TaskList().tasks[task_index].title );
                 //print(Provider.of<TaskList>(context , listen: true).existsSub(Provider.of<TaskList>(context , listen: true).tasks[task_index]));
               }catch(e){
                 print("catttttch");
@@ -91,14 +91,14 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
         ],
       ),);
     }
-    // int counter ;
-    // try{
-    //   counter =TaskList().tasks[task_index].subTasks.length;
-    //   print(counter);
-    // }catch(e){
-    //   counter=0;
-    //   print(counter);
-    // }
+    int counter ;
+    try{
+      counter =TaskList().tasks[task_index].subTasks.length;
+      print(counter);
+    }catch(e){
+      counter=0;
+      print(counter);
+    }
 //_____________________________________________________________________________________________________
     return Scaffold(
       resizeToAvoidBottomInset : false,
@@ -161,15 +161,13 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
               // ),
       //____________________________________________________________________________________________
               Container(
-                height: 100,
+                height: 300,
                 child:Column(
                   children: [
                     Expanded(
                       child: Consumer<TaskList>(
                           builder:(context, value, child) => ListView.builder(
-                            //shrinkWrap: true,
-                            //scrollDirection: Axis.horizontal,
-                            itemCount:value.tasks[task_index].subTasks.length,
+                            itemCount:  value.tasks[task_index].subTasks.length +1 ,
                             itemBuilder: (context, Index) => Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
@@ -179,7 +177,9 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
                                 ),
                                 //Text( value.tasks.length == 0 ? "task listlength is 0" : value.tasks[task_index].title),
                                 //Text( value.tasks.isEmpty? "no tasks" :value.tasks[task_index].title),
-                                Text( value.tasks[task_index].subTasks.isEmpty? "subtasks list is empty" :value.tasks[task_index].subTasks[Index].subtitle)
+                                Text("data"),
+                                Text( value.tasks[task_index].subTasks.isEmpty? "subtasks list is empty"
+                                  :value.tasks[task_index].subTasks[Index].subtitle)
                               ],
                             )     
                           ),

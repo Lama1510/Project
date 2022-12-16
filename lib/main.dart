@@ -9,19 +9,14 @@ import 'package:project/views/container/task_details.dart';
 import 'package:project/views/presentational/providers/task_list.dart';
 
 void main() {
-  runApp(
-    ChangeNotifierProvider(
+  runApp(ChangeNotifierProvider(
       create: (context) => TaskList(),
-      child:MaterialApp(
+      child: MaterialApp(
         initialRoute: '/',
         routes: {
           '/': (context) => MyHomePage(),
           '/taskDetails': (context) => TaskDetailsScreen(),
-          '/catagoryDetails':(context) => CatagoryDetailsScreen()
+          '/catagoryDetails': (context) => CatagoryDetailsScreen()
         },
-        )
-      )
-    );
-  }
-
-
+      )));
+}

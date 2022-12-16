@@ -20,8 +20,8 @@ class TaskList extends ChangeNotifier {
   // add a subtask to a task :
   addSubTask(SubTask sub_task , int  task_index){
     try{
-      print(sub_task);
-      print(sub_task.subtitle);
+      print("${sub_task .subtitle} is sub task title ");
+   
       _tasks[task_index].subTasks.add(sub_task);
       notifyListeners();
     }catch(e){

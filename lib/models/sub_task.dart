@@ -3,7 +3,7 @@ class SubTask {
   String? attachment;
   String? location; 
   String? reminder;
-  String subtitle ;
+  String subtitle = " sub tasks " ;
 
   //construcror:
   SubTask({this.id,required this.subtitle});
