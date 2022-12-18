@@ -148,16 +148,18 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
 
                           Task addedTask = Task( title: titleController.text , date: d , group: group_catagory , state: 'toDo' );
                           print("$addedTask added task");
-                          value.addTask(addedTask);
+                        
                          
                           DatabaseProvider.db.insertTask(addedTask);
                           print(value.dataBaseTasks.isNotEmpty? DatabaseProvider.db.getTasks():"noth");
                            
-                          Navigator.pop(context);
-                          titleController.clear();
+                         
+                         
                           _selectedDate="";
                           setState(() {
-
+                              value.addTask(addedTask);
+                             titleController.clear();
+                             Navigator.pop(context);
                           });
                         }, 
                         icon:Icon(Icons.send)

@@ -182,14 +182,6 @@ class _MyHomePageState extends State<MyHomePage> {
               context: context,
               builder: (_) {
                 return AddTaskScreen(onTaskAdd: _taskAdded);
-                // return AddTaskScreen(onTaskAdd: (Task task)  =>{
-                //   setState(() {
-                //     //Consumer<TaskList>(builder: (context, value, child) => )
-                //     TaskList().tasks.add(task);
-                //     print(TaskList().tasks);
-                //     //MyHomePage.tasks.add(task);
-                //   })
-                // },);
               });
         },
         child: Icon(Icons.add),

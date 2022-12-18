@@ -10,7 +10,13 @@ class TaskList extends ChangeNotifier {
 
   // get tasks list :
   List<Task> get tasks {
-    //notifyListeners();
+    List<Task> ts =[];
+    ts= DatabaseProvider.db.getTasks() as List<Task>;
+    for ( Task t in _tasks){
+      if (t.state=="toDo"){
+        _tasks.add(t);
+      }
+    }
     return _tasks;
   }
 

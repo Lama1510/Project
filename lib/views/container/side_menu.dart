@@ -30,7 +30,8 @@ class _NavDrawerState extends State<NavDrawer> {
                 fontsize: 21,
                 random: true,
               ),
-              Text(" Sign in or sign up"),
+              Expanded(child: Text(" Sign in or sign up"),),
+              
               IconButton(
                   onPressed: () {},
                   icon: Icon(
