@@ -5,14 +5,13 @@ class Task {
   int? id;
   String title;
   DateTime  date = DateTime(2017, 9, 7);
-  String   ? state; 
-//String ?  category;
+  String state = 'toDo'; 
+  //String ?  category;
   List<SubTask> subTasks =[] ;
   final catagory ? group ;
   
-
   //construcror:
-  Task({this.id,required this.title,  required this.date  , this.group});
+  Task({this.id,required this.title,  required this.date  , this.group, required String state});
   //Task({required this.title, required this.state , required this.category, this.date});
 
   factory Task.fromMap(Map<String, dynamic> data) {
@@ -20,6 +19,7 @@ class Task {
       id: data['id'],
       title: data['title'],
       date: data['date'],
+      state: data['state']
     );
   }
   Map<String, dynamic> toMap() {
@@ -27,6 +27,7 @@ class Task {
       'id' :id,
       'title' : title,
       'date' : date,
+      'state' : state,
     };
   }
 

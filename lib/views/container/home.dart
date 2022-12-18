@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:sqflite/sqflite.dart';
 
 // widgets of project
 import 'add_task.dart';
@@ -9,7 +10,7 @@ import '/models/task.dart';
 import 'package:project/views/container/side_menu.dart';
 import 'package:project/views/presentational/widgets/navbar.dart';
 import 'package:project/views/presentational/providers/task_list.dart';
-
+import 'package:project/views/presentational/providers/database.dart';
 
 class MyHomePage extends StatefulWidget {
   //static List<Task> tasks = [];
@@ -23,10 +24,9 @@ class _MyHomePageState extends State<MyHomePage> {
   final List<Task> _completedTasks = [];
   void _taskAdded(Task task) {
     setState(() {
-      //Consumer<TaskList>(builder: (context, value, child) => )
+      //TaskList().dataBaseTasks.add(task);
       TaskList().tasks.add(task);
       print(TaskList().tasks);
-      //MyHomePage.tasks.add(task);
     });
   }
 
@@ -59,8 +59,8 @@ class _MyHomePageState extends State<MyHomePage> {
     // final tomorrow = DateTime(now.year, now.month, now.day + 1);
     return Scaffold(
       drawer: NavDrawer(),
-      backgroundColor: Colors.white, 
-      appBar: AppBar(backgroundColor: Colors.white, title: const Navbar() ),
+      backgroundColor: Colors.white,
+      appBar: AppBar(backgroundColor: Colors.white, title: const Navbar()),
       // double height =MediaQuery.of(context).size.height *0.9;
       body: ListView(
         children: [
@@ -77,64 +77,62 @@ class _MyHomePageState extends State<MyHomePage> {
                     "My Tasks:",
                     style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                   ),
-                  Expanded(
-                    child:  Consumer<TaskList>(
-                      builder: (context, value, child) {
-                        return ListView.builder(
-                        itemCount:value.tasks.length, //MyHomePage.tasks.length,
-                        itemBuilder: (context, index) => GestureDetector(
-                            onTap: () {
-                              Navigator.of(context).pushNamed('/taskDetails', arguments: index);
-                            },
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        IconButton(
-                                          // on pressing on the check box , change the task state into completed
-                                          onPressed: () {
-                                            //tasks[index].state="c";
-                                            setState(() {
-                                              _completedTasks.add(value.tasks[index]); // MyHomePage.tasks[index]); //print(tasks[index].state);
-                                              value.remove(value.tasks[index]); //MyHomePage.tasks.remove(MyHomePage.tasks[index]);
-                                            });
-                                          },
-                                          icon: Icon(Icons.check_box_outline_blank)
-                                        ),//icon:Icon(tasks[index].state !="c" ? Icons.check_box_outline_blank : null)),
-                                        //Text( value.tasks.isEmpty ? value.tasks[index].title : "nopee"),//Text(MyHomePage.tasks[index].title),//Text(tasks[index].state !="c" ? tasks[index].title : ""),
-                                      Text(Provider.of<TaskList>(context, listen: true).tasks[index].title)
-                                      ],
-                                    )
-                                  ],
-                                ),
-                                Column(
-                                  children: [
-                                    Text(value.tasks[index].date != null //MyHomePage.tasks[index].date != null
-                                        ? calculateDifference(value.tasks[index].date).toString()
-                                        : "")
-                                  ],
+                  Expanded(child: Consumer<TaskList>(
+                    builder: (context, value, child) {
+                      return ListView.builder(
+                          itemCount:value.tasks.length,
+                          itemBuilder: (context, index) => GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).pushNamed('/taskDetails',
+                                    arguments: index);
+                              },
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          IconButton(
+                                              // on pressing on the check box , change the task state into completed
+                                              onPressed: () {
+                                                //tasks[index].state="c";
+                                                setState(() {
+                                                  // Task updatedTask = value.dataBaseTasks[index];
+                                                  // updatedTask.state="completed";
+                                                  //DatabaseProvider.db.updateTask(updatedTask);
+                                                  _completedTasks.add(value.tasks[index]);// MyHomePage.tasks[index]); //print(tasks[index].state);
+                                                  value.remove(value.tasks[index]); //MyHomePage.tasks.remove(MyHomePage.tasks[index]);
+                                                });
+                                              },
+                                              icon: Icon(Icons.check_box_outline_blank)), //icon:Icon(tasks[index].state !="c" ? Icons.check_box_outline_blank : null)),
+                                          //Text( value.tasks.isEmpty ? value.tasks[index].title : "nopee"),//Text(MyHomePage.tasks[index].title),//Text(tasks[index].state !="c" ? tasks[index].title : ""),
+                                          Text(Provider.of<TaskList>(context,
+                                                  listen: true)
+                                              .tasks[index]
+                                              .title)
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                  Column(
+                                    children: [
+                                      Text(value.tasks[index].date !=
+                                              null //MyHomePage.tasks[index].date != null
+                                          ? calculateDifference(
+                                                  value.tasks[index].date)
+                                              .toString()
+                                          : "")
+                                    ],
                                   )
-                              ],
-                            )
-                          )
-                        );
-                      },
-                    )  
-                  )
+                                ],
+                              )));
+                    },
+                  ))
                 ],
               )),
-
-
-
-
-
-
-
-
 
           // completed tasks
           Container(
@@ -152,24 +150,26 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     Expanded(
                         child: Consumer<TaskList>(
-                           builder: (context, value, child) => ListView.builder(
-                              itemCount: _completedTasks.length,
-                              itemBuilder: (context, index) => Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      IconButton(
-                                          onPressed: () {
-                                            setState(() {
-                                              value.tasks.add(_completedTasks[index]);
-                                              _completedTasks.removeAt(index); //MyHomePage.tasks.remove(MyHomePage.tasks[index]);
-                                              });
-                                          },
-                                          icon: Icon(Icons.check_box)),
-                                      Text(_completedTasks[index].title),
-                                      //Text(tasks[index].state =="c" ? _completedTasks[index].title : "")
-                                    ],
-                                  )),
-                        ))
+                      builder: (context, value, child) => ListView.builder(
+                          itemCount: _completedTasks.length,
+                          itemBuilder: (context, index) => Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  IconButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          value.tasks
+                                              .add(_completedTasks[index]);
+                                          _completedTasks.removeAt(
+                                              index); //MyHomePage.tasks.remove(MyHomePage.tasks[index]);
+                                        });
+                                      },
+                                      icon: Icon(Icons.check_box)),
+                                  Text(_completedTasks[index].title),
+                                  //Text(tasks[index].state =="c" ? _completedTasks[index].title : "")
+                                ],
+                              )),
+                    ))
                   ]))
         ],
       ),

@@ -5,6 +5,7 @@ import '../../models/task.dart';
 import 'package:intl/intl.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:drop_down_list/drop_down_list.dart';
+import '../presentational/providers/database.dart';
 import '../presentational/providers/task_list.dart';
 import 'home.dart';
 
@@ -39,27 +40,6 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
         });
      }
   }
-  _showDaialog (context){
-    showDialog(context: context, 
-    builder: (context) => AlertDialog(
-      content: SizedBox( 
-        height: 150 ,
-       // Expanded(child: ,)
-        
-        
-      ),
-
-    ),);
-
-
-  }
-
-  // void addIt(Task task){
-  //   setState(() {
-  //     TaskList().tasks.add(task);
-  //     print(TaskList().tasks);
-  //   });
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -86,23 +66,22 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                   height: 50,
                 ),
                 Column(
-                                children: [
-                                  DropdownButton(
-                                   value: group_catagory,
-                                    onChanged: (catagory? newValue) {
-                                                setState(() {
-                                                  group_catagory = newValue!;
-                                                });
-                                              },
-                                              items:  catagory.values.map((e) {
-                                                    return DropdownMenuItem(
-                                                      value: e,
-                                                      child: Text(e.name));
-                                                  }).toList(),
-                                                              )
-
-                                ],
-                              ),
+                  children: [
+                    DropdownButton(
+                      value: group_catagory,
+                      onChanged: (catagory? newValue) {
+                                  setState(() {
+                                    group_catagory = newValue!;
+                                  });
+                                },
+                      items:  catagory.values.map((e) {
+                            return DropdownMenuItem(
+                              value: e,
+                              child: Text(e.name));
+                          }).toList(),
+                    )
+                  ],
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -111,7 +90,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                           IconButton(
                             onPressed: () {
                               _selectDate(context);
-                              print(_selectedDate);
+                              //print(_selectedDate);
                             },
                             icon: Icon(Icons.calendar_month)
                             ),
@@ -128,11 +107,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                             ),
                           IconButton(
                             onPressed: () {
-                            
-                              
-                              
-                             
-                              
+                     
                             },
                             icon: Icon(Icons.inbox)
                             ),
@@ -142,9 +117,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                       builder: (context, value, child) {
                         return  IconButton(
                         onPressed: () { 
-
                           late DateTime d ;
-                          //DateTime d= new DateTime(2017, 9, 7);
                           if(titleController.text.isEmpty) {
                             Fluttertoast.showToast(
                               msg: 'please enter task title',
@@ -153,8 +126,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                               fontSize: 25.5,
                               backgroundColor: Colors.amber
                               );
-                            print("hi text");
-                            //_selectedDate="";
+                            //print("hi text");
                             return;
                           }
                           try {
@@ -169,29 +141,18 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                               fontSize: 25.5,
                               backgroundColor: Colors.amber
                               );
-                            //d= null;
                             return;
                           }
-                          // widget.onTaskAdd(
-                          //   Task(
-                          //     title: titleController.text, 
-                          //     //state: stateController.text,
-                            
-                          //     // date: _selectedDate !=null ? DateFormat("yMMMMd").parse(_selectedDate) : null
-                          //     date: d
-                          //     ),
-                          //   );
-                          //addIt(Task(title: titleController.text , date: d ));
-                                                          print(titleController.text + " : is task title");
-                                                          print(d.toString() + " : is task date");
-                            //value.tasks.add(Task(title: titleController.text , date: d ));
-                            // value.addTask(Task(title: titleController.text , date: d ));
-                            // print(TaskList().tasks);
-                          setState(() {
-                            value.addTask(Task(title: titleController.text , date: d , group: group_catagory ));
-                            print(TaskList().tasks);
-                          });
-                          
+                          // print(titleController.text + " : is task title");
+                          // print(d.toString() + " : is task date");
+
+                          Task addedTask = Task( title: titleController.text , date: d , group: group_catagory , state: 'toDo' );
+                          print("$addedTask added task");
+                          value.addTask(addedTask);
+                         
+                          DatabaseProvider.db.insertTask(addedTask);
+                          print(value.dataBaseTasks.isNotEmpty? DatabaseProvider.db.getTasks():"noth");
+                           
                           Navigator.pop(context);
                           titleController.clear();
                           _selectedDate="";

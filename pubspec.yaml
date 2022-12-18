@@ -43,6 +43,7 @@ dependencies:
   flutter_profile_picture: ^2.0.0
   drop_down_list: ^0.0.4
   sqflite: ^2.2.2
+  path: any
   #flutter_cupertino_datetime_picker: ^3.0.0
   # flutter_cupertino: ^3.0.0
 
